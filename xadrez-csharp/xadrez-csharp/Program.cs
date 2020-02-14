@@ -8,11 +8,19 @@ namespace xadrez_csharp
     {
         static void Main(string[] args)
         {
+            try {
+
             Board board = new Board(8, 8);
             board.setPiece(new Tower(board, Color.Azul), new Position(1, 4));
             board.setPiece(new King(board, Color.Vermelha), new Position(2, 7));
-
+            board.setPiece(new Tower(board, Color.Vermelha), new Position(2, 7));
             View.printBoard(board);
+            
+            } catch (BoardException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
 
             Console.ReadLine();
         }
