@@ -7,11 +7,9 @@ namespace xadrez_csharp
     {
         static void Main(string[] args)
         {
-            Position P;
+            Board board = new Board(8, 8);
+            View.printBoard(board);
 
-            P = new Position(3, 4);
-
-            Console.WriteLine("Position: " + P);
             Console.ReadLine();
         }
     }

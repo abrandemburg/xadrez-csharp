@@ -6,15 +6,20 @@ namespace board
 {
     class Board
     {
-        public int linhas { get; set; }
-        public int colunas { get; set; }
+        public int lines { get; set; }
+        public int colunms { get; set; }
         private Piece[,] pieces;
 
-        public Board(int linhas, int colunas)
+        public Board(int lines, int colunms)
         {
-            this.linhas = linhas;
-            this.colunas = colunas;
-            pieces = new Piece[linhas, colunas];
+            this.lines = lines;
+            this.colunms = colunms;
+            pieces = new Piece[lines, lines];
+        }
+
+        public Piece piece(int line, int colunm)
+        {
+            return pieces[line, colunm];
         }
     }
 }
