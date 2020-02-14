@@ -6,18 +6,18 @@ namespace board
 {
     class Position
     {
-        public int linha { get; set; }
-        public int coluna { get; set; }
+        public int line { get; set; }
+        public int colunm { get; set; }
 
-        public Position(int linha, int coluna)
+        public Position(int line, int colunm)
         {
-            this.linha = linha;
-            this.coluna = coluna;
+            this.line = line;
+            this.colunm = colunm;
         }
 
         public override string ToString()
         {
-            return linha + "," + coluna;
+            return line + "," + colunm;
         }
     }
 }
