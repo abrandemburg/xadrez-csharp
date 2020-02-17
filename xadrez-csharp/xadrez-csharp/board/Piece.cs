@@ -15,5 +15,9 @@ namespace board {
       this.board = board;
       this.moveCounter = 0;
     }
+
+    public void moveIncrement() {
+      moveCounter++;
+    }
   }
 }

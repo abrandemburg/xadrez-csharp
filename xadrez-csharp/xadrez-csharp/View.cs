@@ -1,7 +1,7 @@
 ﻿using board;
+using chess;
 using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace xadrez_csharp {
   class View {
@@ -22,8 +22,16 @@ namespace xadrez_csharp {
       Console.WriteLine("  a b c d e f g h");
     }
 
+    public static ChessPosition readChessPosition () {
+      string s = Console.ReadLine();
+      char colunm = s[0];
+      int line = int.Parse(s[1] + "");
+
+      return new ChessPosition(colunm, line);
+    }
+
     public static void printPiece(Piece piece) {
-      if (piece.color == Color.Branca) {
+      if (piece.color == Color.White) {
         Console.Write(piece);
       }
       else {
