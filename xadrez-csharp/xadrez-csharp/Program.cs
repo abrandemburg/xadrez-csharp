@@ -12,9 +12,17 @@ namespace xadrez_csharp {
         while (!match.finished) {
           Console.Clear();
           View.printBoard(match.board);
-          
+
+          Console.WriteLine();
           Console.Write("Origin: ");
           Position origin = View.readChessPosition().toPosition();
+
+          bool[,] possiblePositions = match.board.piece(origin).possibleMoves();
+
+          Console.Clear();
+          View.printBoard(match.board, possiblePositions);
+
+          Console.WriteLine();
           Console.Write("Destination: ");
           Position destination = View.readChessPosition().toPosition();
 
