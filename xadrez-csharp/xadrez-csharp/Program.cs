@@ -10,23 +10,36 @@ namespace xadrez_csharp {
         ChessMatch match = new ChessMatch();
 
         while (!match.finished) {
-          Console.Clear();
-          View.printBoard(match.board);
 
-          Console.WriteLine();
-          Console.Write("Origin: ");
-          Position origin = View.readChessPosition().toPosition();
+          try {
 
-          bool[,] possiblePositions = match.board.piece(origin).possibleMoves();
+            Console.Clear();
+            View.printBoard(match.board);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + match.turn);
+            Console.WriteLine("Aguardando jogada: " + match.activePlayer);
 
-          Console.Clear();
-          View.printBoard(match.board, possiblePositions);
+            Console.WriteLine();
+            Console.Write("Origin: ");
+            Position origin = View.readChessPosition().toPosition();
+            match.validateOriginPosition(origin);
 
-          Console.WriteLine();
-          Console.Write("Destination: ");
-          Position destination = View.readChessPosition().toPosition();
+            bool[,] possiblePositions = match.board.piece(origin).possibleMoves();
 
-          match.movePerform(origin, destination);
+            Console.Clear();
+            View.printBoard(match.board, possiblePositions);
+
+            Console.WriteLine();
+            Console.Write("Destination: ");
+            Position destination = View.readChessPosition().toPosition();
+            match.validateDestinationPosition(origin, destination);
+
+            match.play(origin, destination);
+
+          } catch (BoardException e) {
+            Console.WriteLine(e.Message);
+            Console.ReadLine();
+          }
         }
 
       } catch (BoardException e) {

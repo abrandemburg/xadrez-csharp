@@ -18,6 +18,22 @@ namespace board {
 
     public abstract bool[,] possibleMoves();
 
+    public bool foundPossibleMoves() {
+      bool[,] mat = possibleMoves();
+      for (int i = 0; i < board.lines; i++) {
+        for (int j = 0; j < board.colunms; j++) {
+          if (mat[i,j]) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    public bool canMoveTo(Position pos) {
+      return possibleMoves()[pos.line, pos.colunm];
+    }
+
     public void moveIncrement() {
       moveCounter++;
     }
