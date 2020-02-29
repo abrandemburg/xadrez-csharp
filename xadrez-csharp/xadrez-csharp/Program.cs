@@ -14,10 +14,7 @@ namespace xadrez_csharp {
           try {
 
             Console.Clear();
-            View.printBoard(match.board);
-            Console.WriteLine();
-            Console.WriteLine("Turno: " + match.turn);
-            Console.WriteLine("Aguardando jogada: " + match.activePlayer);
+            View.printMatch(match);            
 
             Console.WriteLine();
             Console.Write("Origin: ");

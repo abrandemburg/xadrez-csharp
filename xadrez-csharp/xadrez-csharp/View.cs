@@ -1,10 +1,37 @@
 ﻿using board;
 using chess;
 using System;
-
+using System.Collections.Generic;
 
 namespace xadrez_csharp {
   class View {
+
+    public static void printMatch (ChessMatch match) {
+      printBoard(match.board);
+      Console.WriteLine();
+      printCapturedPieces(match);
+      Console.WriteLine();
+      Console.WriteLine("Turn: " + match.turn);
+      Console.WriteLine("Waiting player: " + match.activePlayer);
+    }
+
+    private static void printCapturedPieces (ChessMatch match) {
+      Console.WriteLine("Captured pieces: ");
+      Console.Write("White: ");
+      printCollection(match.capturedPiecesByColor(Color.White));
+      Console.WriteLine();
+      Console.Write("Black: ");
+      printCollection(match.capturedPiecesByColor(Color.Black));
+    }
+
+    private static void printCollection (HashSet<Piece> collection) {
+      Console.Write("[");
+      foreach (Piece p in collection) {
+        Console.Write(p + " ");
+      }
+      Console.Write("]");
+    }
+
     public static void printBoard (Board board) {
 
       for (int i = 0; i < board.lines; i++) {
