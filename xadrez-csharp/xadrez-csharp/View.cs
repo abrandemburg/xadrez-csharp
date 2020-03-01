@@ -12,7 +12,15 @@ namespace xadrez_csharp {
       printCapturedPieces(match);
       Console.WriteLine();
       Console.WriteLine("Turn: " + match.turn);
-      Console.WriteLine("Waiting player: " + match.activePlayer);
+      if (!match.finished) {
+        Console.WriteLine("Waiting player: " + match.activePlayer);
+        if (match.check) {
+          Console.WriteLine("CHECK!!");
+        }
+      } else {
+        Console.WriteLine("Checkmate! The match is over.");
+        Console.WriteLine("Winner: " + match.activePlayer);
+      }
     }
 
     private static void printCapturedPieces (ChessMatch match) {

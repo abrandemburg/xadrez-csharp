@@ -61,6 +61,10 @@ namespace chess {
         check = false;
       }
 
+      if (testCheckmate(rival(activePlayer))) {
+        finished = true;
+      }
+
       turn++;
       changePlayer();
     }
@@ -119,7 +123,8 @@ namespace chess {
       if (color == Color.White) {
         return Color.Black;
       } else {
-        return Color.Yellow;
+        return Color.White;
+        ;
       }
     }
 
@@ -135,7 +140,7 @@ namespace chess {
     public bool inCheck(Color color) {
       Piece R = king(color);
       if (R == null) {
-        throw new BoardException("No king of that color.");
+        throw new BoardException("No king of " + color + " in board");
       }
 
       foreach (Piece p in inGamePieces(rival(color))) {
@@ -145,6 +150,31 @@ namespace chess {
         }
       }
       return false;
+    }
+
+    public bool testCheckmate(Color color) {
+      if (!inCheck(color)) {
+        return false;
+      }
+
+      foreach (Piece p in inGamePieces(color)) {
+        bool[,] mat = p.possibleMoves();
+        for (int i = 0; i < board.lines; i++) {
+          for (int j = 0; j < board.colunms; j++) {
+            if (mat[i, j]) {
+              Position origin = p.position;
+              Position destination = new Position(i, j);
+              Piece capturedPiece = movePerform(origin, destination);
+              bool testCheck = inCheck(color);
+              undoPerform(origin, destination, capturedPiece);
+              if (!testCheck) {
+                return false;
+              }
+            }
+          }
+        }
+      }
+      return true;
     }
 
     public void setNewPiece(char colunm, int line, Piece piece) {
