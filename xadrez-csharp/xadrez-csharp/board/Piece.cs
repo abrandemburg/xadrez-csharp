@@ -37,5 +37,9 @@ namespace board {
     public void moveIncrement() {
       moveCounter++;
     }
+
+    public void moveDecrement() {
+      moveCounter--;
+    }
   }
 }

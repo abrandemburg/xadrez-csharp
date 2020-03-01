@@ -10,6 +10,7 @@ namespace chess {
     public bool finished { get; private set; }
     private HashSet<Piece> pieces;
     private HashSet<Piece> capturedPieces;
+    public bool check { get; private set; }
 
 
 
@@ -23,7 +24,7 @@ namespace chess {
       setPieces();
     }
 
-    public void movePerform (Position origin, Position destination) {
+    public Piece movePerform (Position origin, Position destination) {
       Piece p = board.removePiece(origin);
       p.moveIncrement();
       Piece capturedPiece = board.removePiece(destination);
@@ -32,10 +33,34 @@ namespace chess {
       if (capturedPiece != null) {
         capturedPieces.Add(capturedPiece);
       }
+
+      return capturedPiece;
+    }
+
+    public void undoPerform(Position origin, Position destination, Piece capturedPiece) {
+      Piece p = board.removePiece(destination);
+      p.moveDecrement();
+      if(capturedPiece != null) {
+        board.setPiece(capturedPiece, destination);
+        capturedPieces.Remove(capturedPiece);
+      }
+      board.setPiece(p, origin);
     }
 
     public void play(Position origin, Position destination) {
-      movePerform(origin, destination);
+      Piece capturedPiece = movePerform(origin, destination);
+
+      if (inCheck(activePlayer)) {
+        undoPerform(origin, destination, capturedPiece);
+        throw new BoardException("You can't check your king!");
+      }
+
+      if (inCheck(rival(activePlayer))) {
+        check = true;
+      } else {
+        check = false;
+      }
+
       turn++;
       changePlayer();
     }
@@ -88,6 +113,38 @@ namespace chess {
       }
       aux.ExceptWith(capturedPiecesByColor(color));
       return aux;
+    }
+
+    private Color rival (Color color) {
+      if (color == Color.White) {
+        return Color.Black;
+      } else {
+        return Color.Yellow;
+      }
+    }
+
+    private Piece king (Color color) {
+      foreach (Piece p in inGamePieces(color)) {
+        if (p is King) {
+          return p;
+        }
+      }
+      return null;
+    }
+
+    public bool inCheck(Color color) {
+      Piece R = king(color);
+      if (R == null) {
+        throw new BoardException("No king of that color.");
+      }
+
+      foreach (Piece p in inGamePieces(rival(color))) {
+        bool[,] mat = p.possibleMoves();
+        if (mat[R.position.line, R.position.colunm]) {
+          return true;
+        }
+      }
+      return false;
     }
 
     public void setNewPiece(char colunm, int line, Piece piece) {
