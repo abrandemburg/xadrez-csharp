@@ -2,59 +2,73 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace board {
-  class Board {
-    public int lines { get; set; }
-    public int colunms { get; set; }
+namespace board
+{
+  class Board
+  {
+    public int Lines { get; set; }
+    public int Colunms { get; set; }
     private Piece[,] pieces;
 
-    public Board (int lines, int colunms) {
-      this.lines = lines;
-      this.colunms = colunms;
+    public Board (int lines, int colunms)
+    {
+      this.Lines = lines;
+      this.Colunms = colunms;
       pieces = new Piece[lines, lines];
     }
 
-    public Piece piece (int line, int colunm) {
+    public Piece Piece (int line, int colunm)
+    {
       return pieces[line, colunm];
     }
 
-    public Piece piece (Position pos) {
-      return pieces[pos.line, pos.colunm];
+    public Piece Piece (Position pos)
+    {
+      return pieces[pos.Line, pos.Colunm];
     }
 
-    public bool pieceExist (Position pos) {
-      validatePosition(pos);
-      return piece(pos) != null;
+    public bool PieceExist (Position pos)
+    {
+      ValidatePosition(pos);
+      return Piece(pos) != null;
     }
 
-    public void setPiece (Piece p, Position pos) {
-      if (pieceExist(pos)) {
+    public void SetPiece (Piece p, Position pos)
+    {
+      if (PieceExist(pos))
+      {
         throw new BoardException("Already exist a piece in this position!");
       }
-      pieces[pos.line, pos.colunm] = p;
-      p.position = pos;
+      pieces[pos.Line, pos.Colunm] = p;
+      p.Position = pos;
     }
 
-    public Piece removePiece(Position pos) {
-      if (piece(pos) == null) {
+    public Piece RemovePiece (Position pos)
+    {
+      if (Piece(pos) == null)
+      {
         return null;
       }
 
-      Piece aux = piece(pos);
-      aux.position = null;
-      pieces[pos.line, pos.colunm] = null;
+      Piece aux = Piece(pos);
+      aux.Position = null;
+      pieces[pos.Line, pos.Colunm] = null;
       return aux;
     }
 
-    public bool validPosition (Position pos) {
-      if (pos.line < 0 || pos.line >= lines || pos.colunm < 0 || pos.colunm >= colunms) {
+    public bool ValidPosition (Position pos)
+    {
+      if (pos.Line < 0 || pos.Line >= Lines || pos.Colunm < 0 || pos.Colunm >= Colunms)
+      {
         return false;
       }
       return true;
     }
 
-    public void validatePosition (Position pos) {
-      if (!validPosition(pos)) {
+    public void ValidatePosition (Position pos)
+    {
+      if (!ValidPosition(pos))
+      {
         throw new BoardException("Invalid Position");
       }
     }

@@ -25,10 +25,10 @@ namespace chess {
     }
 
     public Piece movePerform (Position origin, Position destination) {
-      Piece p = board.removePiece(origin);
-      p.moveIncrement();
-      Piece capturedPiece = board.removePiece(destination);
-      board.setPiece(p, destination);
+      Piece p = board.RemovePiece(origin);
+      p.MoveIncrement();
+      Piece capturedPiece = board.RemovePiece(destination);
+      board.SetPiece(p, destination);
 
       if (capturedPiece != null) {
         capturedPieces.Add(capturedPiece);
@@ -38,13 +38,13 @@ namespace chess {
     }
 
     public void undoPerform(Position origin, Position destination, Piece capturedPiece) {
-      Piece p = board.removePiece(destination);
-      p.moveDecrement();
+      Piece p = board.RemovePiece(destination);
+      p.MoveDecrement();
       if(capturedPiece != null) {
-        board.setPiece(capturedPiece, destination);
+        board.SetPiece(capturedPiece, destination);
         capturedPieces.Remove(capturedPiece);
       }
-      board.setPiece(p, origin);
+      board.SetPiece(p, origin);
     }
 
     public void play(Position origin, Position destination) {
@@ -70,21 +70,21 @@ namespace chess {
     }
 
     public void validateOriginPosition(Position pos) {
-      if (board.piece(pos) == null) {
+      if (board.Piece(pos) == null) {
         throw new BoardException("Piece not found.");
       }
 
-      if (activePlayer != board.piece(pos).color) {
+      if (activePlayer != board.Piece(pos).Color) {
         throw new BoardException("Piece isn't yours.");
       }
 
-      if (!board.piece(pos).foundPossibleMoves()) {
+      if (!board.Piece(pos).FoundPossibleMoves()) {
         throw new BoardException("Stuck piece!");
       }
     }
 
     public void validateDestinationPosition(Position origin, Position destination) {
-      if (!board.piece(origin).canMoveTo(destination)) {
+      if (!board.Piece(origin).CanMoveTo(destination)) {
         throw new BoardException("Invalid destination");
       }
     }
@@ -100,7 +100,7 @@ namespace chess {
     public HashSet<Piece> capturedPiecesByColor(Color color) {
       HashSet<Piece> aux = new HashSet<Piece>();
       foreach (Piece p in capturedPieces) {
-        if (p.color == color) {
+        if (p.Color == color) {
           aux.Add(p);
         }
       }
@@ -111,7 +111,7 @@ namespace chess {
     public HashSet<Piece> inGamePieces(Color color) {
       HashSet<Piece> aux = new HashSet<Piece>();
       foreach (Piece p in pieces) {
-        if (p.color == color) {
+        if (p.Color == color) {
           aux.Add(p);
         }
       }
@@ -144,8 +144,8 @@ namespace chess {
       }
 
       foreach (Piece p in inGamePieces(rival(color))) {
-        bool[,] mat = p.possibleMoves();
-        if (mat[R.position.line, R.position.colunm]) {
+        bool[,] mat = p.PossibleMoves();
+        if (mat[R.Position.Line, R.Position.Colunm]) {
           return true;
         }
       }
@@ -158,11 +158,11 @@ namespace chess {
       }
 
       foreach (Piece p in inGamePieces(color)) {
-        bool[,] mat = p.possibleMoves();
-        for (int i = 0; i < board.lines; i++) {
-          for (int j = 0; j < board.colunms; j++) {
+        bool[,] mat = p.PossibleMoves();
+        for (int i = 0; i < board.Lines; i++) {
+          for (int j = 0; j < board.Colunms; j++) {
             if (mat[i, j]) {
-              Position origin = p.position;
+              Position origin = p.Position;
               Position destination = new Position(i, j);
               Piece capturedPiece = movePerform(origin, destination);
               bool testCheck = inCheck(color);
@@ -178,7 +178,7 @@ namespace chess {
     }
 
     public void setNewPiece(char colunm, int line, Piece piece) {
-      board.setPiece(piece, new ChessPosition(colunm, line).toPosition());
+      board.SetPiece(piece, new ChessPosition(colunm, line).toPosition());
       pieces.Add(piece);
     }
 

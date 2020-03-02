@@ -1,23 +1,29 @@
-﻿namespace board {
-  class Position {
-    public int line { get; set; }
-    public int colunm { get; set; }
+﻿namespace board
+{
+  class Position
+  {
+    public int Line { get; set; }
+    public int Colunm { get; set; }
 
-    public Position (int line, int colunm) {
-      this.line = line;
-      this.colunm = colunm;
+    public Position (int line, int colunm)
+    {
+      this.Line = line;
+      this.Colunm = colunm;
     }
 
-    public void defineValues(int line, int colunm) {
-      this.line = line;
-      this.colunm = colunm;
+    public void DefineValues (int line, int colunm)
+    {
+      this.Line = line;
+      this.Colunm = colunm;
     }
 
-    public override string ToString () {
-      return line + "," + colunm;
+    public override string ToString ()
+    {
+      return Line + "," + Colunm;
     }
 
-    public void test () {
+    public void Test ()
+    {
 
     }
   }

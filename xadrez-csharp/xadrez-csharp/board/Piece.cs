@@ -2,27 +2,34 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace board {
-  abstract class Piece {
-    public Position position { get; set; }
-    public Color color { get; protected set; }
-    public int moveCounter { get; protected set; }
-    public Board board { get; protected set; }
+namespace board
+{
+  abstract class Piece
+  {
+    public Position Position { get; set; }
+    public Color Color { get; protected set; }
+    public int MoveCounter { get; protected set; }
+    public Board Board { get; protected set; }
 
-    public Piece (Board board, Color color) {
-      this.position = null;
-      this.color = color;
-      this.board = board;
-      this.moveCounter = 0;
+    public Piece (Board board, Color color)
+    {
+      this.Position = null;
+      this.Color = color;
+      this.Board = board;
+      this.MoveCounter = 0;
     }
 
-    public abstract bool[,] possibleMoves();
+    public abstract bool[,] PossibleMoves ();
 
-    public bool foundPossibleMoves() {
-      bool[,] mat = possibleMoves();
-      for (int i = 0; i < board.lines; i++) {
-        for (int j = 0; j < board.colunms; j++) {
-          if (mat[i,j]) {
+    public bool FoundPossibleMoves ()
+    {
+      bool[,] mat = PossibleMoves();
+      for (int i = 0; i < Board.Lines; i++)
+      {
+        for (int j = 0; j < Board.Colunms; j++)
+        {
+          if (mat[i, j])
+          {
             return true;
           }
         }
@@ -30,16 +37,19 @@ namespace board {
       return false;
     }
 
-    public bool canMoveTo(Position pos) {
-      return possibleMoves()[pos.line, pos.colunm];
+    public bool CanMoveTo (Position pos)
+    {
+      return PossibleMoves()[pos.Line, pos.Colunm];
     }
 
-    public void moveIncrement() {
-      moveCounter++;
+    public void MoveIncrement ()
+    {
+      MoveCounter++;
     }
 
-    public void moveDecrement() {
-      moveCounter--;
+    public void MoveDecrement ()
+    {
+      MoveCounter--;
     }
   }
 }

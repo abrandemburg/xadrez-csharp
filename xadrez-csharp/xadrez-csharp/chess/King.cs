@@ -13,61 +13,61 @@ namespace chess {
     }
 
     private bool canMove(Position pos) {
-      Piece p = board.piece(pos);
-      return p == null || p.color != color;
+      Piece p = Board.Piece(pos);
+      return p == null || p.Color != Color;
     }
 
-    public override bool[,] possibleMoves() {
-      bool[,] mat = new bool[board.lines, board.colunms];
+    public override bool[,] PossibleMoves() {
+      bool[,] mat = new bool[Board.Lines, Board.Colunms];
 
       Position pos = new Position(0, 0);
 
       //north
-      pos.defineValues(position.line - 1, position.colunm);
-      if (board.validPosition(pos) && canMove(pos)) {
-        mat[pos.line, pos.colunm] = true;
+      pos.DefineValues(Position.Line - 1, Position.Colunm);
+      if (Board.ValidPosition(pos) && canMove(pos)) {
+        mat[pos.Line, pos.Colunm] = true;
       }
 
       //northeast
-      pos.defineValues(position.line - 1, position.colunm + 1);
-      if (board.validPosition(pos) && canMove(pos)) {
-        mat[pos.line, pos.colunm] = true;
+      pos.DefineValues(Position.Line - 1, Position.Colunm + 1);
+      if (Board.ValidPosition(pos) && canMove(pos)) {
+        mat[pos.Line, pos.Colunm] = true;
       }
 
       //east
-      pos.defineValues(position.line, position.colunm + 1);
-      if (board.validPosition(pos) && canMove(pos)) {
-        mat[pos.line, pos.colunm] = true;
+      pos.DefineValues(Position.Line, Position.Colunm + 1);
+      if (Board.ValidPosition(pos) && canMove(pos)) {
+        mat[pos.Line, pos.Colunm] = true;
       }
 
       //southeast
-      pos.defineValues(position.line + 1, position.colunm + 1);
-      if (board.validPosition(pos) && canMove(pos)) {
-        mat[pos.line, pos.colunm] = true;
+      pos.DefineValues(Position.Line + 1, Position.Colunm + 1);
+      if (Board.ValidPosition(pos) && canMove(pos)) {
+        mat[pos.Line, pos.Colunm] = true;
       }
 
       //south
-      pos.defineValues(position.line + 1, position.colunm);
-      if (board.validPosition(pos) && canMove(pos)) {
-        mat[pos.line, pos.colunm] = true;
+      pos.DefineValues(Position.Line + 1, Position.Colunm);
+      if (Board.ValidPosition(pos) && canMove(pos)) {
+        mat[pos.Line, pos.Colunm] = true;
       }
 
       //southwest
-      pos.defineValues(position.line + 1, position.colunm - 1);
-      if (board.validPosition(pos) && canMove(pos)) {
-        mat[pos.line, pos.colunm] = true;
+      pos.DefineValues(Position.Line + 1, Position.Colunm - 1);
+      if (Board.ValidPosition(pos) && canMove(pos)) {
+        mat[pos.Line, pos.Colunm] = true;
       }
 
       //west
-      pos.defineValues(position.line, position.colunm - 1);
-      if (board.validPosition(pos) && canMove(pos)) {
-        mat[pos.line, pos.colunm] = true;
+      pos.DefineValues(Position.Line, Position.Colunm - 1);
+      if (Board.ValidPosition(pos) && canMove(pos)) {
+        mat[pos.Line, pos.Colunm] = true;
       }
 
       //northwest
-      pos.defineValues(position.line - 1, position.colunm -1);
-      if (board.validPosition(pos) && canMove(pos)) {
-        mat[pos.line, pos.colunm] = true;
+      pos.DefineValues(Position.Line - 1, Position.Colunm -1);
+      if (Board.ValidPosition(pos) && canMove(pos)) {
+        mat[pos.Line, pos.Colunm] = true;
       }
       
       return mat;

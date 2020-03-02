@@ -21,7 +21,7 @@ namespace xadrez_csharp {
             Position origin = View.readChessPosition().toPosition();
             match.validateOriginPosition(origin);
 
-            bool[,] possiblePositions = match.board.piece(origin).possibleMoves();
+            bool[,] possiblePositions = match.board.Piece(origin).PossibleMoves();
 
             Console.Clear();
             View.printBoard(match.board, possiblePositions);
